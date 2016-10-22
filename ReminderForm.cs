@@ -5,6 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -84,6 +85,9 @@ namespace BetterReminders
 			// by default, dismiss when dialog is closed. unless snooze is selected
 			meeting.Dismiss();
 
+			reactivateTime = DateTime.Now + reactivateTimeSpan;
+
+
 		}
 
 		private void ReminderForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -116,7 +120,16 @@ namespace BetterReminders
 			// but 2 hours after the meeting ends give up
 			if (DateTime.Now > meeting.EndTime + new TimeSpan(2, 0, 0))
 				Close();
+			else if (DateTime.Now > reactivateTime)
+			{
+				// periodically reactivate and restore in case it was minimized or lost focus somehow
+				reactivateTime = DateTime.Now + reactivateTimeSpan;
+				logger.Debug("Restoring and activating window after timeout");
+				WindowState = FormWindowState.Normal;
+				Activate();
+				//SetForegroundWindow(this.Handle);
 
+			}
 		}
 
 		private void openButton_Click(object sender, EventArgs e)
@@ -178,13 +191,15 @@ namespace BetterReminders
 			snooze(timeList.SelectedItem.ToString());
 		}
 
+		private DateTime reactivateTime = DateTime.MaxValue;
+		// long enough to finish what you're doing, but not to make you too late for the meeting
+		// could make this configurable
+		private readonly TimeSpan reactivateTimeSpan = new TimeSpan(0, 0, 45);
 		private void ReminderForm_Resize(object sender, EventArgs e)
 		{
 			if (WindowState == FormWindowState.Minimized)
 			{
-				// long enough to finish what you're doing, but not to make you too late for the meeting
-				// could make this configurable
-				snooze("Remind in 45 seconds", false);
+				reactivateTime = DateTime.Now + reactivateTimeSpan;
 			}
 		}
 
@@ -193,11 +208,6 @@ namespace BetterReminders
 			if (e.KeyCode == Keys.Enter)
 				snooze(timeCombo.Text);
 		}
-
-		private void ReminderForm_FormClosing(object sender, FormClosingEventArgs e)
-		{
-		}
-
 		private void dismissButton_Click(object sender, EventArgs e)
 		{
 			Close();
