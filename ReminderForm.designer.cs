@@ -160,7 +160,7 @@
 			// 
 			// dummyButtonToTakeFocusOnStartup
 			// 
-			this.dummyButtonToTakeFocusOnStartup.Location = new System.Drawing.Point(32, 300);
+			this.dummyButtonToTakeFocusOnStartup.Location = new System.Drawing.Point(-30, -30);
 			this.dummyButtonToTakeFocusOnStartup.Name = "dummyButtonToTakeFocusOnStartup";
 			this.dummyButtonToTakeFocusOnStartup.Size = new System.Drawing.Size(0, 0);
 			this.dummyButtonToTakeFocusOnStartup.TabIndex = 0;
@@ -189,9 +189,7 @@
 			this.Name = "ReminderForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "BetterReminders for Outlook - Reminder";
-			this.toolTip.SetToolTip(this, "Created by Ben Spiller");
 			this.TopMost = true;
-			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ReminderForm_FormClosing);
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ReminderForm_FormClosed);
 			this.Resize += new System.EventHandler(this.ReminderForm_Resize);
 			this.ResumeLayout(false);
