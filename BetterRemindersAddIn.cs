@@ -224,7 +224,7 @@ namespace BetterReminders
 
         void Application_OptionsPagesAdd(Outlook.PropertyPages Pages)
         {
-            //Pages.Add(new PreferencesPage(), "BetterReminders");
+            Pages.Add(new PreferencesPage(), "BetterReminders");
         }
 
 
