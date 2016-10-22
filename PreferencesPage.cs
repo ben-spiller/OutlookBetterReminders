@@ -16,7 +16,7 @@ namespace BetterReminders
 	[ComVisible(true)]
 	public partial class PreferencesPage : UserControl, Outlook.PropertyPage
 	{
-		private Logger logger = new Logger();
+		private Logger logger = Logger.GetLogger();
 		private Outlook.PropertyPageSite propertyPageSite;
 
 		public PreferencesPage()
@@ -55,16 +55,12 @@ namespace BetterReminders
 
 		private void valueChanged(object sender, EventArgs e)
 		{
-			logger.Info("value changed: " + (propertyPageSite == null));
-
 			if (propertyPageSite == null) return; // still loading
 
 			if (isDirty) return; //already called
 
-			new Logger().Debug("value changed");
 			isDirty = true;
 			propertyPageSite.OnStatusChange();
-			new Logger().Debug("set status changed");
 		}
 
 		Outlook.PropertyPageSite GetPropertyPageSite()
@@ -99,7 +95,7 @@ namespace BetterReminders
 				reminderSoundPath.Text = Properties.Settings.Default.playSoundOnReminder;
 
 				propertyPageSite = GetPropertyPageSite();
-				logger.Info("Successfully loaded BetterReminders preferences page");
+				logger.Info("Successfully loaded preferences page");
 			}
 			catch (Exception ex)
 			{

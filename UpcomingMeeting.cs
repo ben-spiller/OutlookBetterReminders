@@ -18,7 +18,7 @@ namespace BetterReminders
 	/// </summary>
 	public class UpcomingMeeting : IDisposable
 	{
-		private static Logger logger = new Logger();
+		private static Logger logger = Logger.GetLogger();
 
 		/// <summary>
 		/// The next time we need to show a reminder for this item. 

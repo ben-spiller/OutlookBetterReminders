@@ -177,7 +177,7 @@
     </Compile>
     <Compile Include="SnoozeTime.cs" />
     <Compile Include="UpcomingMeeting.cs" />
-    <Compile Include="Utils.cs" />
+    <Compile Include="Logger.cs" />
     <EmbeddedResource Include="PreferencesPage.resx">
       <DependentUpon>PreferencesPage.cs</DependentUpon>
     </EmbeddedResource>

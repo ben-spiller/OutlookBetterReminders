@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="defaultReminderSecs" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">30</Value>
+      <Value Profile="(Default)">60</Value>
     </Setting>
     <Setting Name="playSoundOnReminder" Type="System.String" Scope="User">
       <Value Profile="(Default)">(default)</Value>

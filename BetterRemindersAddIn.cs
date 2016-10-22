@@ -35,7 +35,7 @@ namespace BetterReminders
 	public partial class BetterRemindersAddIn
 	{
 		#region fields
-		private static Logger logger = new Logger();
+		private static Logger logger = Logger.GetLogger();
 
 		private DateTime nextPlannedWakeup;
 		private System.Windows.Forms.Timer myTimer = new System.Windows.Forms.Timer();
@@ -178,7 +178,7 @@ namespace BetterReminders
 				if (myTimer.Interval <= 0)
 				{
 					// should never happen
-					logger.Info("Warning: set interval of " + myTimer.Interval + "; next=" + next);
+					logger.Info("Warning: attempted to set invalid interval of " + myTimer.Interval + "; next=" + next);
 					myTimer.Interval = 100;
 				}
 				nextPlannedWakeup = sleepUntil; // used to measure lateness
@@ -197,7 +197,8 @@ namespace BetterReminders
 
 		private void ThisAddIn_Startup(object sender, System.EventArgs e)
 		{
-			logger.Info("Startup");
+			logger.Info("AddIn is starting");
+
 			Globals.BetterRemindersAddIn.Application.OptionsPagesAdd += new Outlook.ApplicationEvents_11_OptionsPagesAddEventHandler(Application_OptionsPagesAdd);
 			
 			// wait a bit before doing anything, to give outlook a chance to finish starting
@@ -240,7 +241,7 @@ namespace BetterReminders
 		private void TimerEventProcessor(Object myObject, EventArgs myEventArgs)
 		{
 			myTimer.Stop();
-			logger.Debug("Timer triggered at " + DateTime.Now + " (late by " + (DateTime.Now - nextPlannedWakeup).TotalSeconds + "s)");
+			logger.Debug("Timer triggered at " + DateTime.Now + " (late by " + Math.Round((DateTime.Now - nextPlannedWakeup).TotalSeconds) + "s)");
 			waitOrRemind();
 		}
 

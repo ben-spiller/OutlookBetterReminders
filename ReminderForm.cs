@@ -24,7 +24,7 @@ namespace BetterReminders
 	/// </summary>
 	public partial class ReminderForm : Form
 	{
-		private static Logger logger = new Logger();
+		private static Logger logger = Logger.GetLogger();
 		private UpcomingMeeting meeting;
 		private readonly string joinUrl;
 
