@@ -25,7 +25,7 @@ namespace BetterReminders.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
         public int defaultReminderSecs {
             get {
                 return ((int)(this["defaultReminderSecs"]));
