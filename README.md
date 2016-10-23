@@ -19,8 +19,11 @@ The full feature list is:
 - options are configurable using Outlook's Options>Add-ins>Add-in Options dialog, allowing you to choose your preferred reminder time and optinally a .wav to play when showing a reminder
 - if you're using Lync or Webex there's a "Join" button available directly from the reminder window
 
-### Supported Outlook
+### Supported Outlook versions
 Tested and developed with Outlook 2010 - but there should be no reason for it not to work with other Outlook versions. If you're using a different Outlook version please get in touch to share your experiences, and this section will be updated accordingly. 
+
+### Licensing
+This software is licensed under the MIT license, see https://github.com/ben-spiller/OutlookBetterReminders/blob/master/LICENSE
 
 ### Authors and Contributors
 Developed by @ben-spiller. Happy to accept code contributions and suggestions. 
