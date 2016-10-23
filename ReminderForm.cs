@@ -11,6 +11,9 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+// Copyright (c) 2016 Ben Spiller. 
+
+
 namespace BetterReminders
 {
 

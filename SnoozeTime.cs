@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
+// Copyright (c) 2016 Ben Spiller. 
+
+
 namespace BetterReminders
 {
 	public struct SnoozeTime : IComparable<SnoozeTime>

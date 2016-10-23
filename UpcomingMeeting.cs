@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Outlook = Microsoft.Office.Interop.Outlook;
 using System.Text.RegularExpressions;
 
+// Copyright (c) 2016 Ben Spiller. 
+
 namespace BetterReminders
 {
 	/// <summary>

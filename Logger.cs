@@ -1,6 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
+
+// Copyright (c) 2016 Ben Spiller. 
+
+
 namespace BetterReminders
 {
 	/// <summary>

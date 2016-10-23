@@ -10,6 +10,9 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Threading;
 
+
+// Copyright (c) 2016 Ben Spiller. 
+
 /*
  * Futures:
  * NotifyIcon with balloons

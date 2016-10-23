@@ -11,6 +11,9 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using Outlook = Microsoft.Office.Interop.Outlook;
 
+// Copyright (c) 2016 Ben Spiller. 
+
+
 namespace BetterReminders
 {
 	[ComVisible(true)]
