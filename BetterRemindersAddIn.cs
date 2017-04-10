@@ -51,6 +51,11 @@ namespace BetterReminders
 		/// </summary>
 		private Dictionary<string, UpcomingMeeting> upcoming = new Dictionary<string, UpcomingMeeting>();
 
+		/// <summary>
+		/// Records the last time we searched for meetings, to ensure the next search can pick up where the last one left off
+		/// </summary>
+		private DateTime lastMeetingSearchTime = DateTime.Now;
+
 		#endregion
 
 		#region constants
@@ -69,6 +74,9 @@ namespace BetterReminders
 		/// Wait a bit before doing anything, to give outlook a chance to finish starting and improve responsiveness
 		/// </summary>
 		private const int StartupDelaySecs = 20;
+
+		private readonly TimeSpan OneDay = new TimeSpan(1, 0, 0, 0);
+
 
 		#endregion
 
@@ -95,12 +103,22 @@ namespace BetterReminders
 			// add in any new meetings we're not aware of yet that will start or need to be reminded about in the 
 			// next sleep interval, ignoring any that have ended already
 			// this filter is conservative - must not miss any items, but is ok if it contains some extra ones
-			string filter = "[Start] >= '" + (now).ToString("g") + "'"
+
+			// we use lastMeetingSearchTime as the lower bound to avoid missing stuff, but give up and just 
+			// do it from 'now' onwards if we haven't checked for a day or more, since it's too late anyway by then
+			if (now - lastMeetingSearchTime > OneDay)
+				lastMeetingSearchTime = now;
+
+			string filter = "[Start] >= '" + (lastMeetingSearchTime).ToString("g") + "'"
 				+ " AND [Start] <= '" + (now + SleepInterval + DefaultReminderTime).ToString("g") + "'"
 				+ " AND [End] >= '" + (now).ToString("g") + "'"
 				// not really necessary but
-				+ " AND [End] <= '" + (now + new TimeSpan(1, 0, 0, 0)).ToString("g") + "'"
+				+ " AND [End] <= '" + (now + OneDay).ToString("g") + "'"
 				;
+
+			// next time we'll monitor from now on
+			lastMeetingSearchTime = now;
+
 			/*
 			filter = "[Start] >= '" + new DateTime(2016, 1, 17).ToString("g") + "'"
 							+ " AND [Start] <= '" + new DateTime(2016, 1, 19).ToString("g") + "'"
