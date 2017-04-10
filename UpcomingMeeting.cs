@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Outlook = Microsoft.Office.Interop.Outlook;
 using System.Text.RegularExpressions;
 
-// Copyright (c) 2016 Ben Spiller. 
+// Copyright (c) 2016-2017 Ben Spiller. 
 
 namespace BetterReminders
 {
@@ -100,18 +100,21 @@ namespace BetterReminders
 			return "Meeting<start="+StartTime+", end="+EndTime+", reminder="+NextReminderTime+", subject="+Subject+">";
 		}
 
-		public bool Update()
+		/// Checks if this item has been modified, and updates all relevant fields if it has. 
+		/// Returns true if the start time has changed
+		public bool UpdateStartTime()
 		{
 			// this may be premature optimization, but try to okeep calls into the outlook item to a minimum 
 			// since there's some COM marshalling and thread serialization that has to happen behind the scenes
 			if (!deleted && OutlookItem.LastModificationTime != lastModificationTime)
 			{
 				lastModificationTime = OutlookItem.LastModificationTime;
+				bool result = OutlookItem.Start != StartTime;
 				StartTime = OutlookItem.Start;
 				EndTime = OutlookItem.End;
 				subject = OutlookItem.Subject;
 				logger.Info("Item was changed by Outlook at " + lastModificationTime + ": " + this);
-				return true;
+				return result;
 			}
 			else
 				return false;

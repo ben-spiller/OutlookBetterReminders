@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 
 
-// Copyright (c) 2016 Ben Spiller. 
+// Copyright (c) 2016-2017 Ben Spiller. 
 
 /*
  * Futures:
@@ -79,13 +79,17 @@ namespace BetterReminders
 			// first update existing items in case there were any changes
 			foreach (UpcomingMeeting m in upcoming.Values)
 			{
-				// if start date was pulled forward we might need a notification sooner
-				if (m.Update())
-					if (m.NextReminderTime > m.StartTime - DefaultReminderTime)
-					{
-						logger.Info("Bringing forward reminder time for " + m + " due to change in start time");
-						m.NextReminderTime = m.StartTime - DefaultReminderTime;
-					}
+				// if start date was changed in either direction we should recalculate 
+				// the reminder - might need a notification sooner,
+				// or if the meeting was postponed then later. 
+				// always resetting to defaultremindertime is the safest/most conservative 
+				// option since it gives maximum opportunity for the user to decide 
+				// whether to defer the meeting
+				if (m.UpdateStartTime())
+				{
+					logger.Info("Resetting reminder time for " + m + " due to change in start time");
+					m.NextReminderTime = m.StartTime - DefaultReminderTime;
+				}
 			}
 
 			// add in any new meetings we're not aware of yet that will start or need to be reminded about in the 
