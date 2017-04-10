@@ -97,7 +97,7 @@ namespace BetterReminders
 		{
 			if (deleted)
 				return "DeletedMeeting<subject=" + Subject + ">";
-			return "Meeting<start="+StartTime+", end="+EndTime+", reminder="+NextReminderTime+", subject="+Subject+">";
+			return "Meeting<start="+StartTime+", end="+EndTime+", reminder="+(IsDismissed ? "<dismissed>" : NextReminderTime.ToString())+", subject="+Subject+">";
 		}
 
 		/// Checks if this item has been modified, and updates all relevant fields if it has. 
