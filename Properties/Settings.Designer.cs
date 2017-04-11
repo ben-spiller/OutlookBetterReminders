@@ -70,5 +70,17 @@ namespace BetterReminders.Properties {
                 this["searchFrequencySecs"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string meetingUrlRegex {
+            get {
+                return ((string)(this["meetingUrlRegex"]));
+            }
+            set {
+                this["meetingUrlRegex"] = value;
+            }
+        }
     }
 }

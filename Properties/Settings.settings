@@ -14,5 +14,8 @@
     <Setting Name="searchFrequencySecs" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">240</Value>
     </Setting>
+    <Setting Name="meetingUrlRegex" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
