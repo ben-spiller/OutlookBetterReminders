@@ -117,12 +117,13 @@
 			this.timeList.ItemHeight = 16;
 			this.timeList.Items.AddRange(new object[] {
             "Remind 30 seconds before start",
+            "Remind 2 minutes before start",
             "Remind in 30 seconds",
             "Remind in 1 minute",
             "Remind in 5 minutes"});
 			this.timeList.Location = new System.Drawing.Point(15, 165);
 			this.timeList.Name = "timeList";
-			this.timeList.Size = new System.Drawing.Size(387, 68);
+			this.timeList.Size = new System.Drawing.Size(387, 84);
 			this.timeList.TabIndex = 3;
 			this.toolTip.SetToolTip(this.timeList, "This list contains your recently used snooze times");
 			this.timeList.SelectedIndexChanged += new System.EventHandler(this.timeList_SelectedIndexChanged);
@@ -142,7 +143,7 @@
 			this.timeCombo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.timeCombo.FormattingEnabled = true;
-			this.timeCombo.Location = new System.Drawing.Point(15, 249);
+			this.timeCombo.Location = new System.Drawing.Point(15, 277);
 			this.timeCombo.Name = "timeCombo";
 			this.timeCombo.Size = new System.Drawing.Size(387, 21);
 			this.timeCombo.TabIndex = 4;
@@ -173,7 +174,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.dismissButton;
-			this.ClientSize = new System.Drawing.Size(414, 282);
+			this.ClientSize = new System.Drawing.Size(414, 310);
 			this.Controls.Add(this.dummyButtonToTakeFocusOnStartup);
 			this.Controls.Add(this.timeCombo);
 			this.Controls.Add(this.label1);

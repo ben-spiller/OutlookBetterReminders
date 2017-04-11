@@ -75,6 +75,8 @@ namespace BetterReminders
 			var list = SnoozeTime.ParseList(Properties.Settings.Default.mruSnoozeTimes);
 			if (list.Count == 0)
 			{
+				// initialize default list of snooze times
+				list.Add(new SnoozeTime(-2*60, false));
 				list.Add(new SnoozeTime(-30, false));
 				list.Add(new SnoozeTime(30, true));
 				list.Add(new SnoozeTime(60, true));
@@ -177,7 +179,7 @@ namespace BetterReminders
 			var list = SnoozeTime.ParseList(Properties.Settings.Default.mruSnoozeTimes);
 			list.Remove(st);
 			list.Insert(0, st);
-			while (list.Count > 4) list.RemoveAt(list.Count - 1);
+			while (list.Count > 5) list.RemoveAt(list.Count - 1);
 			Properties.Settings.Default.mruSnoozeTimes = SnoozeTime.ListToString(list);
 			Properties.Settings.Default.Save();
 
