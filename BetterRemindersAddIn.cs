@@ -272,7 +272,7 @@ namespace BetterReminders
 
 		void ReminderFormClosedEventHandler(object sender, FormClosedEventArgs e)
 		{
-			logger.Debug("Form was closed");
+			logger.Info("Reminder window was closed");
 			waitOrRemind();
 		}
 
