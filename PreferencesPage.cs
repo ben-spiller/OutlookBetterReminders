@@ -141,8 +141,8 @@ namespace BetterReminders
 				reminderSoundBrowseDialog.FileName = "";
 			else
 				reminderSoundBrowseDialog.FileName = reminderSoundPath.Text;
-			if (reminderSoundBrowseDialog.ShowDialog(ParentForm) == DialogResult.OK);
-			reminderSoundPath.Text = reminderSoundBrowseDialog.FileName;
+			if (reminderSoundBrowseDialog.ShowDialog(ParentForm) == DialogResult.OK)
+				reminderSoundPath.Text = reminderSoundBrowseDialog.FileName;
 		}
 
 	}
