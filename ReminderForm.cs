@@ -127,7 +127,8 @@ namespace BetterReminders
 			{
 				// periodically reactivate and restore in case it was minimized or lost focus somehow
 				reactivateTime = DateTime.Now + reactivateTimeSpan;
-				logger.Debug("Restoring and activating window after timeout");
+				if (WindowState != FormWindowState.Normal)
+					logger.Debug("Restoring and activating reminder window after timeout");
 				WindowState = FormWindowState.Normal;
 				Activate();
 				//SetForegroundWindow(this.Handle);
