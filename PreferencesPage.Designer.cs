@@ -50,7 +50,7 @@
 			this.label1.Location = new System.Drawing.Point(15, 37);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(227, 13);
-			this.label1.TabIndex = 0;
+			this.label1.TabIndex = 1;
 			this.label1.Text = "Default reminder time (secs):";
 			// 
 			// defaultReminderTimeSecs
@@ -69,7 +69,7 @@
             0});
 			this.defaultReminderTimeSecs.Name = "defaultReminderTimeSecs";
 			this.defaultReminderTimeSecs.Size = new System.Drawing.Size(99, 20);
-			this.defaultReminderTimeSecs.TabIndex = 0;
+			this.defaultReminderTimeSecs.TabIndex = 2;
 			this.defaultReminderTimeSecs.Value = new decimal(new int[] {
             1,
             0,
@@ -84,7 +84,7 @@
 			this.label2.Location = new System.Drawing.Point(15, 70);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(236, 20);
-			this.label2.TabIndex = 1;
+			this.label2.TabIndex = 3;
 			this.label2.Text = "Appointment search frequency (mins):";
 			// 
 			// searchFrequencyMins
@@ -98,7 +98,7 @@
             0});
 			this.searchFrequencyMins.Name = "searchFrequencyMins";
 			this.searchFrequencyMins.Size = new System.Drawing.Size(99, 20);
-			this.searchFrequencyMins.TabIndex = 2;
+			this.searchFrequencyMins.TabIndex = 4;
 			this.searchFrequencyMins.Value = new decimal(new int[] {
             1,
             0,
@@ -113,7 +113,7 @@
 			this.label3.Location = new System.Drawing.Point(15, 174);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(239, 23);
-			this.label3.TabIndex = 5;
+			this.label3.TabIndex = 7;
 			this.label3.Text = "Reminder sound (.wav)";
 			// 
 			// label4
@@ -123,7 +123,7 @@
 			this.label4.Location = new System.Drawing.Point(18, 0);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(341, 15);
-			this.label4.TabIndex = 7;
+			this.label4.TabIndex = 0;
 			this.label4.Text = " BetterReminders was created by Ben Spiller";
 			this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
@@ -138,7 +138,7 @@
 			this.reminderSoundPath.Location = new System.Drawing.Point(18, 198);
 			this.reminderSoundPath.Name = "reminderSoundPath";
 			this.reminderSoundPath.Size = new System.Drawing.Size(257, 21);
-			this.reminderSoundPath.TabIndex = 6;
+			this.reminderSoundPath.TabIndex = 8;
 			this.reminderSoundPath.TextChanged += new System.EventHandler(this.valueChanged);
 			// 
 			// reminderSoundBrowse
@@ -147,7 +147,7 @@
 			this.reminderSoundBrowse.Location = new System.Drawing.Point(284, 198);
 			this.reminderSoundBrowse.Name = "reminderSoundBrowse";
 			this.reminderSoundBrowse.Size = new System.Drawing.Size(75, 23);
-			this.reminderSoundBrowse.TabIndex = 8;
+			this.reminderSoundBrowse.TabIndex = 10;
 			this.reminderSoundBrowse.Text = "Browse";
 			this.reminderSoundBrowse.UseVisualStyleBackColor = true;
 			this.reminderSoundBrowse.Click += new System.EventHandler(this.reminderSoundBrowse_Click);
@@ -163,7 +163,7 @@
 			this.label5.Location = new System.Drawing.Point(15, 108);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(102, 13);
-			this.label5.TabIndex = 3;
+			this.label5.TabIndex = 5;
 			this.label5.Text = "Meeting URL regex:";
 			// 
 			// meetingUrlRegex
@@ -174,7 +174,7 @@
 			this.meetingUrlRegex.Location = new System.Drawing.Point(18, 135);
 			this.meetingUrlRegex.Name = "meetingUrlRegex";
 			this.meetingUrlRegex.Size = new System.Drawing.Size(341, 21);
-			this.meetingUrlRegex.TabIndex = 4;
+			this.meetingUrlRegex.TabIndex = 6;
 			this.meetingUrlRegex.TextChanged += new System.EventHandler(this.valueChanged);
 			// 
 			// PreferencesPage
