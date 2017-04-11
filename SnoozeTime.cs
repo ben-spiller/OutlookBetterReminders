@@ -21,6 +21,11 @@ namespace BetterReminders
 		/// </summary>
 		public bool FromNow;
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="secs">Seconds after now or after start time (negative indicates seconds before start time)</param>
+		/// <param name="fromNow">true if relative to now, false if relative to meeting start time</param>
 		public SnoozeTime(int secs, bool fromNow)
 		{
 			Secs = secs;
