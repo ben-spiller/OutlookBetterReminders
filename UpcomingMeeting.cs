@@ -37,6 +37,8 @@ namespace BetterReminders
 		public readonly Outlook.AppointmentItem OutlookItem;
 		private DateTime lastModificationTime;
 
+		public bool IsCancelled;
+
 		private string id;
 		public string ID { get { return id; } }
 
@@ -83,6 +85,10 @@ namespace BetterReminders
 			return OutlookItem.Organizer;
 		}
 
+		public static bool IsAppointmentCancelled(Outlook.AppointmentItem item)
+		{
+			return item.MeetingStatus == Outlook.OlMeetingStatus.olMeetingCanceled || item.MeetingStatus == Outlook.OlMeetingStatus.olMeetingReceivedAndCanceled;
+		}
 
 		public UpcomingMeeting(Outlook.AppointmentItem item, DateTime reminderTime)
 		{
@@ -91,12 +97,14 @@ namespace BetterReminders
 			item.BeforeDelete += item_BeforeDelete;
 			OutlookItem = item;
 
-			id = item.EntryID;
-			subject = item.Subject;
+			id = OutlookItem.EntryID;
+			subject = OutlookItem.Subject;
 			NextReminderTime = reminderTime;
-			StartTime = item.Start;
-			EndTime = item.End;
-			lastModificationTime = item.LastModificationTime;
+
+			StartTime = OutlookItem.Start;
+			EndTime = OutlookItem.End;
+			IsCancelled = IsAppointmentCancelled(OutlookItem);
+			lastModificationTime = OutlookItem.LastModificationTime;
 		}
 
 		public bool IsDeleted { get { return deleted; } }
@@ -112,7 +120,7 @@ namespace BetterReminders
 		{
 			if (deleted)
 				return "DeletedMeeting<subject=" + Subject + ">";
-			return "Meeting<start="+StartTime+", end="+EndTime+", reminder="+(IsDismissed ? "<dismissed>" : NextReminderTime.ToString())+", subject="+Subject+">";
+			return "Meeting<start="+StartTime+", end="+EndTime+", reminder="+(IsDismissed ? "<dismissed>" : NextReminderTime.ToString())+(IsCancelled ? ", status=<cancelled>" : "")+", subject="+Subject+">";
 		}
 
 		/// Checks if this item has been modified, and updates all relevant fields if it has. 
@@ -128,6 +136,7 @@ namespace BetterReminders
 				StartTime = OutlookItem.Start;
 				EndTime = OutlookItem.End;
 				subject = OutlookItem.Subject;
+				IsCancelled = IsAppointmentCancelled(OutlookItem);
 				logger.Info("Item was changed by Outlook at " + lastModificationTime + ": " + this);
 				return result;
 			}

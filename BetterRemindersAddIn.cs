@@ -139,6 +139,12 @@ namespace BetterReminders
 			foreach (Outlook.AppointmentItem item in calItems)
 			{
 				if (item.AllDayEvent) continue;
+				if (UpcomingMeeting.IsAppointmentCancelled(item))
+				{
+					logger.Debug("Ignoring cancelled meeting: "+item.Subject);
+					continue;
+				}
+
 				//logger.Debug("Returned: " + new UpcomingMeeting(item, item.Start - DefaultReminderTime)); // TODO; remove
 				// nb: the second check should be unecessary, but prevents bad behaviour if outlook's filtering doesn't work right for some reason
 				if (!upcoming.ContainsKey(item.EntryID) && item.End >= now)
