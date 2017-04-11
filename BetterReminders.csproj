@@ -39,9 +39,9 @@
     <UpdateEnabled>false</UpdateEnabled>
     <UpdateInterval>0</UpdateInterval>
     <UpdateIntervalUnits>days</UpdateIntervalUnits>
-    <ProductName>BetterReminders</ProductName>
+    <ProductName>Outlook BetterReminders</ProductName>
     <PublisherName>Ben Spiller</PublisherName>
-    <SupportUrl>https://github.com/ben-spiller/OutlookBetterReminders</SupportUrl>
+    <SupportUrl>https://ben-spiller.github.io/OutlookBetterReminders</SupportUrl>
     <FriendlyName>BetterReminders</FriendlyName>
     <OfficeApplicationDescription>Outlook Add-in providing an improved meeting reminder window that appears on top of other windows and gives better control of snooze times</OfficeApplicationDescription>
     <LoadBehavior>3</LoadBehavior>
@@ -213,6 +213,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="ReminderForm.resx">
       <DependentUpon>ReminderForm.cs</DependentUpon>
@@ -241,6 +242,12 @@
     </Compile>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="appointment-reminder-16.ico" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -253,6 +260,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>17E48C1B79FA6993E3D90AB2DE648DCA7219B73B</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
