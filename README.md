@@ -25,7 +25,7 @@ Tested and developed with Outlook 2010 - but there should be no reason for it no
 ### Installation, uninstallation and upgrade
 To install, extract the zip and run setup.exe. 
 
-To uninstall, select "Outlook BetterReminders" in the "Programs and Feature" control panel. 
+To uninstall, select "Outlook BetterReminders" in the "Programs and Features" control panel. 
 
 To upgrade to a newer release, first uninstall the old version then install the new one. 
 
