@@ -10,8 +10,9 @@ using System.Windows.Forms;
 
 using System.Runtime.InteropServices;
 using Outlook = Microsoft.Office.Interop.Outlook;
+using System.Text.RegularExpressions;
 
-// Copyright (c) 2016 Ben Spiller. 
+// Copyright (c) 2016-2017 Ben Spiller. 
 
 
 namespace BetterReminders
@@ -30,8 +31,27 @@ namespace BetterReminders
 		bool isDirty = false;
 		void Outlook.PropertyPage.Apply()
 		{
-			if (reminderSoundPath.Text != "" && reminderSoundPath.Text != "(default)" && 
-				!System.IO.File.Exists(reminderSoundPath.Text))
+			string meetingregex = meetingUrlRegex.Text;
+			// normalize use of default regex to improve upgradeability
+			if (meetingregex == UpcomingMeeting.DefaultMeetingUrlRegex)
+				meetingregex = "";
+			if (meetingregex != "")
+				try
+				{
+					Regex re = new Regex(meetingregex);
+					if (!re.GetGroupNames().Contains("url"))
+						throw new Exception("The meeting regex must include a regex group named 'url' e.g. '"+UpcomingMeeting.DefaultMeetingUrlRegex+"'");
+				} catch (Exception e)
+				{
+					string msg = "Invalid meeting URL regex: "+e.Message;
+					MessageBox.Show(msg, "Invalid Meeting URL regex", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					throw new Exception(msg, e); // stops isDirty being changed
+				}
+
+			// first, validation
+			string reminderSound = (reminderSoundPath.Text == "(none)") ? "" : reminderSoundPath.Text;
+			if (reminderSound != "" && reminderSound != "(default)" &&
+				!System.IO.File.Exists(reminderSound))
 			{
 				MessageBox.Show("Reminder .wav path does not exist. Provide a valid .wav path, empty string or (default).", "Invalid BetterReminders settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				throw new Exception("BetterReminders got invalid input"); // stops isDirty being changed
@@ -39,7 +59,8 @@ namespace BetterReminders
 
 			Properties.Settings.Default.defaultReminderSecs = Decimal.ToInt32(defaultReminderTimeSecs.Value);
 			Properties.Settings.Default.searchFrequencySecs = Decimal.ToInt32(searchFrequencyMins.Value)*60;
-			Properties.Settings.Default.playSoundOnReminder = reminderSoundPath.Text;
+			Properties.Settings.Default.playSoundOnReminder = reminderSound;
+			Properties.Settings.Default.meetingUrlRegex = meetingregex;
 			Properties.Settings.Default.Save();
 			isDirty = false;
 		}
@@ -97,6 +118,13 @@ namespace BetterReminders
 				searchFrequencyMins.Value = Math.Max(1, Math.Min(Properties.Settings.Default.searchFrequencySecs/60, searchFrequencyMins.Maximum));
 				reminderSoundPath.Text = Properties.Settings.Default.playSoundOnReminder;
 
+				// provide default in case user forgets
+				meetingUrlRegex.Items.Add(UpcomingMeeting.DefaultMeetingUrlRegex);
+				
+				meetingUrlRegex.Text = Properties.Settings.Default.meetingUrlRegex;
+				if (string.IsNullOrWhiteSpace(meetingUrlRegex.Text))
+					meetingUrlRegex.Text = UpcomingMeeting.DefaultMeetingUrlRegex;
+
 				propertyPageSite = GetPropertyPageSite();
 				logger.Info("Successfully loaded preferences page");
 			}
@@ -105,6 +133,16 @@ namespace BetterReminders
 				logger.Error("Error loading preferences page: ", ex);
 				throw; 
 			}
+		}
+
+		private void reminderSoundBrowse_Click(object sender, EventArgs e)
+		{
+			if (reminderSoundPath.Text.StartsWith("("))
+				reminderSoundBrowseDialog.FileName = "";
+			else
+				reminderSoundBrowseDialog.FileName = reminderSoundPath.Text;
+			if (reminderSoundBrowseDialog.ShowDialog(ParentForm) == DialogResult.OK);
+			reminderSoundPath.Text = reminderSoundBrowseDialog.FileName;
 		}
 
 	}

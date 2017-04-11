@@ -47,13 +47,28 @@ namespace BetterReminders
 		public string Body { get { return OutlookItem.Body ?? ""; } }
 
 		// works for both lync and webex invites
-		private static Regex meetingUrlRegex = new Regex("HYPERLINK \"([^\"]+)\" *Join .*[Mm]eeting");
+		public const string DefaultMeetingUrlRegex = "HYPERLINK \"(?<url>[^\"]+)\" *Join .*[Mm]eeting";
+
 		public string GetMeetingUrl()
 		{
-			Match m = meetingUrlRegex.Match(Body);
-			if (m.Success)
-				return m.Groups[1].Value;
-			return "";
+			Regex re;
+			string regexSetting = Properties.Settings.Default.meetingUrlRegex;
+			try
+			{
+				if (String.IsNullOrWhiteSpace(regexSetting))
+					re = new Regex(DefaultMeetingUrlRegex);
+				else
+					re = new Regex(regexSetting);
+				Match m = re.Match(Body);
+				if (m.Success)
+					return m.Groups["url"].Value;
+				return "";
+			}
+			catch (Exception e)
+			{
+				logger.Info("Error creating or matching regex '" + regexSetting + "' for "+this+": " + e);
+				return "";
+			}
 		}
 		public IEnumerable<string> GetAttendees()
 		{
