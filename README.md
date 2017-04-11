@@ -12,15 +12,22 @@ The full feature list is:
 - reminder window takes the focus and stays on top of other windows so you won't be at risk of missing it as with the regular outlook reminder window
 - snooze times can be measured in seconds not just minutes (e.g. remind me 10 seconds before start - great for online meetings/informal conference calls)
 - reminder window includes a countdown timer showing seconds before meeting starts or seconds overdue
-- user-specified snooze times are supported, with the 4 most recently used available with a simple double-click (no finnicky combo box menu to open, and definitely no typing required)
+- user-specified snooze times are supported, with the 5 most recently used available with a simple double-click (no finnicky combo box menu to open, and definitely no typing required)
 - minimizing (rather than snoozing/dismissing) the reminder window results in it re-activating after 45 seconds so you don't forget to join
 - in the interests of simplicity only the next upcoming item is shown in the window - subsequent reminders will appear when that window is dismissed or snoozed
 - BetterReminders reminders always appear X seconds/minutes before start time regardless of the 'reminder' time set on the outlook item by whoever scheduled the meeting. You can still use Outlook's standard reminder window for longer-range reminders (e.g. 2 days in advance etc), but regardless of whether you've dismissed Outlook's reminder window, didn't notice it popping up in the background, or the meeting organiser didn't set one, you can rely on BetterReminders giving you a notification shortly before the meeting starts
-- options are configurable using Outlook's Options>Add-ins>Add-in Options dialog, allowing you to choose your preferred reminder time and optinally a .wav to play when showing a reminder
 - if you're using Lync or Webex there's a "Join" button available directly from the reminder window
+- options are configurable using Outlook's Options>Add-ins>Add-in Options dialog, allowing you to choose your preferred reminder time, customize how the meeting URL is extracted from the meeting description, and optionally a .wav to play when showing a reminder
 
 ### Supported Outlook versions
 Tested and developed with Outlook 2010 - but there should be no reason for it not to work with other Outlook versions. If you're using a different Outlook version please get in touch to share your experiences, and this section will be updated accordingly. 
+
+### Installation, uninstallation and upgrade
+To install, extract the zip and run setup.exe. 
+
+To uninstall, select "Outlook BetterReminders" in the "Programs and Feature" control panel. 
+
+To upgrade to a newer release, first uninstall the old version then install the new one. 
 
 ### Licensing
 This software is licensed under the MIT license, see https://github.com/ben-spiller/OutlookBetterReminders/blob/master/LICENSE
