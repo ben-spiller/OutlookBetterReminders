@@ -9,6 +9,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Configuration;
 
 
 // Copyright (c) 2016-2017 Ben Spiller. 
@@ -223,6 +224,7 @@ namespace BetterReminders
 		private void ThisAddIn_Startup(object sender, System.EventArgs e)
 		{
 			logger.Info("AddIn is starting");
+			logger.Debug("Settings are under: " + ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath);
 
 			Globals.BetterRemindersAddIn.Application.OptionsPagesAdd += new Outlook.ApplicationEvents_11_OptionsPagesAddEventHandler(Application_OptionsPagesAdd);
 			
