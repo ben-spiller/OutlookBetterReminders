@@ -1,5 +1,7 @@
 - Update Copyright messages in AssemblyInfo.cs and LICENSE
 - Update version numbers in AssemblyInfo.cs and "Publish" page of project properties
+- Ensure a valid private key (can be generated from VS as a test certificate if needed) is saved to the project/BetterReminders_PrivateKey.pfx file
+
 - Change to the "Release" (not Debug) configuration in Visual Studio
 - Using Visual Studio, open project properties, select the publish tab and click Publish Now
 - Zip up the entire contents of the publish/* folder and call it outlook-better-reminders-X.Y.zip
