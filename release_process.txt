@@ -1,5 +1,6 @@
 - Update Copyright messages in AssemblyInfo.cs and LICENSE
 - Update version numbers in AssemblyInfo.cs and "Publish" page of project properties
+- Update readme.md and changelog.md with any new features/changes
 - Ensure a valid private key (can be generated from VS as a test certificate if needed) is saved to the project/BetterReminders_PrivateKey.pfx file
 
 - Change to the "Release" (not Debug) configuration in Visual Studio
@@ -9,5 +10,4 @@
 	Use BetterReminders vX.Y as the release title
 	Drop the zip created above under the new release
 
-- Update readme.md with any new features/changes
 - Update https://github.com/ben-spiller/OutlookBetterReminders.git/branches/gh-pages with any readme.md changes
