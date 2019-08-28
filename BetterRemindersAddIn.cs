@@ -12,13 +12,12 @@ using System.Threading;
 using System.Configuration;
 
 
-// Copyright (c) 2016-2017 Ben Spiller. 
+// Copyright (c) 2016-2019 Ben Spiller. 
 
 /*
  * Futures:
  * NotifyIcon with balloons
  * Executing a command line or playing a sound on first reminder
- * Subject regex for includes/excludes
  * Configure different default reminder times based on location, organiser
  * Use a user-defined property in an appointment (and maybe Outlook's reminder) to override the default reminder time
  * Allow remembering reminder time for recurring appointments in settings
@@ -81,6 +80,18 @@ namespace BetterReminders
 
 		#endregion
 
+		private Outlook.Items findCalendarItems(string filter)
+		{
+			Outlook.Folder calFolder = Application.Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderCalendar) as Outlook.Folder;
+
+			Outlook.Items calItems = calFolder.Items;
+			// weirdly, sorting is *required* otherwise the start dates for recurring items are all wrong
+			calItems.Sort("[Start]", false);
+			calItems.IncludeRecurrences = true;
+			calItems = calItems.Restrict(filter);
+			logger.Debug("Searching calendar using filter: " + filter + " -> got " + calItems.Count + " items");
+			return calItems;
+		}
 
 		private void updateUpcomingMeetings()
 		{
@@ -110,12 +121,13 @@ namespace BetterReminders
 			if (now - lastMeetingSearchTime > OneDay)
 				lastMeetingSearchTime = now;
 
-			string filter = "[Start] >= '" + (lastMeetingSearchTime).ToString("g") + "'"
+			Outlook.Items calItems = findCalendarItems(
+				"[Start] >= '" + (lastMeetingSearchTime).ToString("g") + "'"
 				+ " AND [Start] <= '" + (now + SleepInterval + DefaultReminderTime).ToString("g") + "'"
 				+ " AND [End] >= '" + (now).ToString("g") + "'"
 				// not really necessary but
 				+ " AND [End] <= '" + (now + OneDay).ToString("g") + "'"
-				;
+				);
 
 			// next time we'll monitor from now on
 			lastMeetingSearchTime = now;
@@ -127,18 +139,18 @@ namespace BetterReminders
 							+ " AND [End] <= '" + new DateTime(2016, 1, 19).ToString("g") + "'"
 							;
 			 * */
-			Outlook.Folder calFolder = Application.Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderCalendar) as Outlook.Folder;
 
-			Outlook.Items calItems = calFolder.Items;
-			// weirdly, sorting is *required* otherwise the start dates for recurring items are all wrong
-			calItems.Sort("[Start]", false);
-			calItems.IncludeRecurrences = true;
-			calItems = calItems.Restrict(filter);
-			logger.Debug("Searching calendar using filter: " + filter + " -> got " + calItems.Count + " items");
-
+			Regex subjectExcludeRegex = getSubjectExcludeRegex();
 			foreach (Outlook.AppointmentItem item in calItems)
 			{
 				if (item.AllDayEvent) continue;
+
+				if (subjectExcludeRegex.IsMatch(item.Subject))
+				{
+					logger.Debug("Ignoring excluded meeting based on subject: " + item.Subject);
+					continue;
+				}
+
 				if (UpcomingMeeting.IsAppointmentCancelled(item))
 				{
 					logger.Debug("Ignoring cancelled meeting: "+item.Subject);
@@ -161,7 +173,17 @@ namespace BetterReminders
 				upcoming[id].Dispose();
 				upcoming.Remove(id);
 			}
-			logger.Debug(upcoming.Count + " upcoming items: " + string.Join("\n   ", upcoming.Values));
+			logger.Debug(upcoming.Count + " upcoming items: " + string.Join("\n	  ", upcoming.Values));
+		}
+
+		/// <summary>
+		/// Get the regex for excluding based on subject, or null if none. 
+		/// </summary>
+		/// <returns></returns>
+		private Regex getSubjectExcludeRegex()
+		{
+			return Properties.Settings.Default.subjectExcludeRegex == "" ? null : new Regex(
+				Properties.Settings.Default.subjectExcludeRegex, RegexOptions.ExplicitCapture, TimeSpan.FromSeconds(1));
 		}
 
 		/// <summary>
@@ -256,10 +278,10 @@ namespace BetterReminders
 			logger.Debug("End of startup");
 		}
 
-        void Application_OptionsPagesAdd(Outlook.PropertyPages Pages)
-        {
-            Pages.Add(new PreferencesPage(), "BetterReminders");
-        }
+		void Application_OptionsPagesAdd(Outlook.PropertyPages Pages)
+		{
+			Pages.Add(new PreferencesPage(), "BetterReminders");
+		}
 
 
 		private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
@@ -271,11 +293,51 @@ namespace BetterReminders
 			logger.Shutdown();
 		}
 
+		private Boolean delayedStartupTasksExecuted = false;
+
 		private void TimerEventProcessor(Object myObject, EventArgs myEventArgs)
 		{
 			myTimer.Stop();
 			logger.Debug("Timer triggered at " + DateTime.Now + " (late by " + Math.Round((DateTime.Now - nextPlannedWakeup).TotalSeconds) + "s)");
+
+			if (!delayedStartupTasksExecuted) performDelayedStartupTasks();
+			delayedStartupTasksExecuted = true;
+
 			waitOrRemind();
+		}
+
+		/// <summary>
+		/// Called one at startup, after an initial delay to let outlook finish loading
+		/// </summary>
+		void performDelayedStartupTasks()
+		{
+			// This code is only for diagnosing tricky problems and won't be executed in a normal deployment
+			if (!logger.Enabled) return;
+
+			// iterate over all of today's items
+			logger.Debug("Advanced diagnostics: logging data on items in today's calendar...");
+			Outlook.Items calItems = findCalendarItems(
+				"[Start] >= '" + (DateTime.Today).ToString("g") + "'"
+				+ " AND [Start] <= '" + (DateTime.Today + OneDay).ToString("g") + "'"
+				+ " AND [End] >= '" + (DateTime.Today).ToString("g") + "'"
+				// not really necessary but
+				+ " AND [End] <= '" + (DateTime.Today + OneDay).ToString("g") + "'"
+				);
+			var subjectExcludeRegex = getSubjectExcludeRegex();
+			foreach (Outlook.AppointmentItem item in calItems)
+			{
+				var meeting = new UpcomingMeeting(item, item.Start - DefaultReminderTime);
+				if (meeting.GetMeetingUrl() != "")
+					logger.Debug("Extracted meeting URL from '"+meeting.Subject+"': '"+meeting.GetMeetingUrl()+"'");
+				else if (meeting.Body.Trim() != "")
+				{ 
+					// This is a bit verbose but may be needed sometimes for debugging URL regexes (at least until we build a proper UI for that task)
+					logger.Info("No meeting URL found in '" + meeting.Subject + "': \n-------------------------------------\n" + meeting.Body+ "\n-------------------------------------\n");
+				}
+				if (subjectExcludeRegex != null && subjectExcludeRegex.IsMatch(item.Subject))
+					logger.Info("This item will be ignored due to subject exclude regex: '"+item.Subject+"'");
+			}
+			logger.Debug("Completed advanced diagnostics - checked "+calItems.Count+" calendar items for today\n\n");
 		}
 
 		void ReminderFormClosedEventHandler(object sender, FormClosedEventArgs e)

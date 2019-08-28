@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 using Outlook = Microsoft.Office.Interop.Outlook;
 using System.Text.RegularExpressions;
 
-// Copyright (c) 2016-2017 Ben Spiller. 
+// Copyright (c) 2016-2017, 2019 Ben Spiller. 
 
 
 namespace BetterReminders
@@ -44,9 +44,23 @@ namespace BetterReminders
 				} catch (Exception e)
 				{
 					string msg = "Invalid meeting URL regex: "+e.Message;
-					MessageBox.Show(msg, "Invalid Meeting URL regex", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					MessageBox.Show(msg, "Invalid Meeting URL Regex", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					throw new Exception(msg, e); // stops isDirty being changed
 				}
+
+			string subjectexcluderegex = subjectExcludeRegex.Text;
+			if (subjectexcluderegex != "")
+				try
+				{
+					Regex re = new Regex(subjectexcluderegex);
+				}
+				catch (Exception e)
+				{
+					string msg = "Invalid subject exclude regex: " + e.Message;
+					MessageBox.Show(msg, "Invalid Subject Exclude Regex", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					throw new Exception(msg, e); // stops isDirty being changed
+				}
+
 
 			// first, validation
 			string reminderSound = (reminderSoundPath.Text == "(none)") ? "" : reminderSoundPath.Text;
@@ -61,6 +75,7 @@ namespace BetterReminders
 			Properties.Settings.Default.searchFrequencySecs = Decimal.ToInt32(searchFrequencyMins.Value)*60;
 			Properties.Settings.Default.playSoundOnReminder = reminderSound;
 			Properties.Settings.Default.meetingUrlRegex = meetingregex;
+			Properties.Settings.Default.subjectExcludeRegex = subjectexcluderegex;
 			Properties.Settings.Default.Save();
 			isDirty = false;
 		}
@@ -125,7 +140,9 @@ namespace BetterReminders
 				if (string.IsNullOrWhiteSpace(meetingUrlRegex.Text))
 					meetingUrlRegex.Text = UpcomingMeeting.DefaultMeetingUrlRegex;
 
-				propertyPageSite = GetPropertyPageSite();
+                subjectExcludeRegex.Text = Properties.Settings.Default.subjectExcludeRegex;
+
+                propertyPageSite = GetPropertyPageSite();
 				logger.Info("Successfully loaded preferences page");
 			}
 			catch (Exception ex)

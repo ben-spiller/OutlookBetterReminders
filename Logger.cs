@@ -61,6 +61,11 @@ namespace BetterReminders
 			log("DEBUG", msg);
 		}
 
+        public Boolean Enabled
+        {
+            get { return sw != null; }
+        }
+
 		private void log(string level, string msg)
 		{
 			System.Diagnostics.Trace.TraceInformation("BetterReminders - "+level+" - "+msg);
