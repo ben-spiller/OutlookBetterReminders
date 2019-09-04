@@ -1,3 +1,8 @@
+Changes in v1.3
+---------------
+
+- Fixed null argument exception in subject exclude handling that could prevent reminders showing up in some cases. 
+
 Changes in v1.2
 ---------------
 

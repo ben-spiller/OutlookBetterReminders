@@ -145,7 +145,7 @@ namespace BetterReminders
 			{
 				if (item.AllDayEvent) continue;
 
-				if (subjectExcludeRegex.IsMatch(item.Subject))
+				if (subjectExcludeRegex != null && subjectExcludeRegex.IsMatch(item.Subject ?? ""))
 				{
 					logger.Debug("Ignoring excluded meeting based on subject: " + item.Subject);
 					continue;
@@ -324,8 +324,13 @@ namespace BetterReminders
 				+ " AND [End] <= '" + (DateTime.Today + OneDay).ToString("g") + "'"
 				);
 			var subjectExcludeRegex = getSubjectExcludeRegex();
+			int count = 0;
 			foreach (Outlook.AppointmentItem item in calItems)
 			{
+				count++;
+				if (string.IsNullOrWhiteSpace(item.Subject))
+					logger.Debug("Found meeting with subject '"+item.Subject+"' at "+item.Start);
+
 				var meeting = new UpcomingMeeting(item, item.Start - DefaultReminderTime);
 				if (meeting.GetMeetingUrl() != "")
 					logger.Debug("Extracted meeting URL from '"+meeting.Subject+"': '"+meeting.GetMeetingUrl()+"'");
@@ -334,10 +339,10 @@ namespace BetterReminders
 					// This is a bit verbose but may be needed sometimes for debugging URL regexes (at least until we build a proper UI for that task)
 					logger.Info("No meeting URL found in '" + meeting.Subject + "': \n-------------------------------------\n" + meeting.Body+ "\n-------------------------------------\n");
 				}
-				if (subjectExcludeRegex != null && subjectExcludeRegex.IsMatch(item.Subject))
+				if (subjectExcludeRegex != null && subjectExcludeRegex.IsMatch(item.Subject ?? ""))
 					logger.Info("This item will be ignored due to subject exclude regex: '"+item.Subject+"'");
 			}
-			logger.Debug("Completed advanced diagnostics - checked "+calItems.Count+" calendar items for today\n\n");
+			logger.Debug("Completed advanced diagnostics - checked "+count+" calendar items for today\n\n");
 		}
 
 		void ReminderFormClosedEventHandler(object sender, FormClosedEventArgs e)
