@@ -251,7 +251,7 @@ namespace BetterReminders
 
 		private void ThisAddIn_Startup(object sender, System.EventArgs e)
 		{
-			logger.Info("AddIn is starting");
+			logger.Info("AddIn is starting: v"+ System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
 			logger.Debug("Settings are under: " + ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath);
 
 			Globals.BetterRemindersAddIn.Application.OptionsPagesAdd += new Outlook.ApplicationEvents_11_OptionsPagesAddEventHandler(Application_OptionsPagesAdd);
@@ -300,8 +300,16 @@ namespace BetterReminders
 			myTimer.Stop();
 			logger.Debug("Timer triggered at " + DateTime.Now + " (late by " + Math.Round((DateTime.Now - nextPlannedWakeup).TotalSeconds) + "s)");
 
-			if (!delayedStartupTasksExecuted) performDelayedStartupTasks();
-			delayedStartupTasksExecuted = true;
+			try
+			{
+				if (!delayedStartupTasksExecuted) performDelayedStartupTasks();
+				delayedStartupTasksExecuted = true;
+			}
+			catch (Exception ex)
+			{
+				logger.Error("Unexpected error in performDelayedStartupTasks: ", ex);
+				// don't throw out of here as then nothing will work
+			}
 
 			waitOrRemind();
 		}
@@ -330,6 +338,8 @@ namespace BetterReminders
 				count++;
 				if (string.IsNullOrWhiteSpace(item.Subject))
 					logger.Debug("Found meeting with subject '"+item.Subject+"' at "+item.Start);
+
+				if (item.AllDayEvent) continue; // else constructor will throw
 
 				var meeting = new UpcomingMeeting(item, item.Start - DefaultReminderTime);
 				if (meeting.GetMeetingUrl() != "")
