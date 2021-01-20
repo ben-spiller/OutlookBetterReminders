@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Outlook = Microsoft.Office.Interop.Outlook;
 using System.Text.RegularExpressions;
 
-// Copyright (c) 2016-2019 Ben Spiller. 
+// Copyright (c) 2016-2021 Ben Spiller. 
 
 namespace BetterReminders
 {
@@ -48,8 +48,8 @@ namespace BetterReminders
 		public string Location { get { return OutlookItem.Location ?? ""; } }
 		public string Body { get { return OutlookItem.Body ?? ""; } }
 
-		// works for both lync and webex invites. First syntax is for Office 365, HYPERLINK syntax is for Office 2010
-		public const string DefaultMeetingUrlRegex = "(Join .*[Mm]eeting <(?<url>[^>]+)>|HYPERLINK \"(?<url>[^\"]+)\" *Join .*[Mm]eeting)";
+		// works for both lync, webex and MSTeams invites. First syntax is for Office 365, HYPERLINK syntax is for Office 2010
+		public const string DefaultMeetingUrlRegex = "(Join .*[Mm]eeting <(?<url>[^>]+)>|HYPERLINK \"(?<url>[^\"]+)\" *Join .*[Mm]eeting|(?<url>https://teams.microsoft.com/[^ ]*meetup-join[^ ]*))";
 
 		public string GetMeetingUrl()
 		{
