@@ -17,7 +17,9 @@ The full feature list is:
 - in the interests of simplicity only the next upcoming item is shown in the window - subsequent reminders will appear when that window is dismissed or snoozed
 - BetterReminders reminders always appear X seconds/minutes before start time regardless of the 'reminder' time set on the outlook item by whoever scheduled the meeting. You can still use Outlook's standard reminder window for longer-range reminders (e.g. 2 days in advance etc), but regardless of whether you've dismissed Outlook's reminder window, didn't notice it popping up in the background, or the meeting organiser didn't set one, you can rely on BetterReminders giving you a notification shortly before the meeting starts
 - if you're using Teams, Lync or Webex there's a "Join" button available directly from the reminder window
-- options are configurable using Outlook's Options>Add-ins>Add-in Options dialog, allowing you to choose your preferred reminder time, customize how the meeting URL is extracted from the meeting description, exclude certain meetings based on a subject regular expression, and optionally a .wav to play when showing a reminder
+- options are configurable using Outlook's Options>Add-ins>Add-in Options dialog, allowing you to choose your preferred reminder time, 
+  customize how the meeting URL is extracted from the meeting description (using a regular expression with a `?<url>` named group; this can be used to add meeting links for other languages/translations/meeting tools), 
+  exclude certain meetings based on a subject regular expression, and optionally a .wav to play when showing a reminder
 
 ### Supported Outlook versions
 Tested and developed with both Outlook 2010 and Office 365 (desktop version) - but there should be no reason for it not to work with other Outlook versions. If you're using a different Outlook version please get in touch to share your experiences, and this section will be updated accordingly. 
