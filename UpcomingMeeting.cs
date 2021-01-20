@@ -48,8 +48,10 @@ namespace BetterReminders
 		public string Location { get { return OutlookItem.Location ?? ""; } }
 		public string Body { get { return OutlookItem.Body ?? ""; } }
 
-		// works for both lync, webex and MSTeams invites. First syntax is for Office 365, HYPERLINK syntax is for Office 2010
-		public const string DefaultMeetingUrlRegex = "(Join .*[Mm]eeting <(?<url>[^>]+)>|HYPERLINK \"(?<url>[^\"]+)\" *Join .*[Mm]eeting|(?<url>https://teams.microsoft.com/[^ ]*meetup-join[^ ]*))";
+		// works for webex, lync, zoom and MSTeams invites. 
+		// First hyperlink syntax is for Office 365, 2nd ("HYPERLINK") syntax is for Office 2010. Both of these work on MSTeams in English and probably many others too. 
+		// Final option picks up meeting links via URL that works for other languages (but doesn't cope with "safe" URLs that go via a redirection server)
+		public const string DefaultMeetingUrlRegex = "(Join .*[Mm]eeting <(?<url>[^>]+)>|HYPERLINK \"(?<url>[^\"]+)\" *Join .*[Mm]eeting|(?<url>https://teams.microsoft.com/[^ >]*meetup-join[^ >]*)|?<url>https://[^> /]*[.]zoom[.][^> ]*)";
 
 		public string GetMeetingUrl()
 		{

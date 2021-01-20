@@ -1,3 +1,8 @@
+Changes in v1.4
+---------------
+
+- Improved the meeting URL regular expression to work with Teams and Zoom, in most cases (not all) regardless of language.
+
 Changes in v1.3
 ---------------
 

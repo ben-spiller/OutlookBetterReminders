@@ -16,7 +16,7 @@ The full feature list is:
 - minimizing (rather than snoozing/dismissing) the reminder window results in it re-activating after 45 seconds so you don't forget to join
 - in the interests of simplicity only the next upcoming item is shown in the window - subsequent reminders will appear when that window is dismissed or snoozed
 - BetterReminders reminders always appear X seconds/minutes before start time regardless of the 'reminder' time set on the outlook item by whoever scheduled the meeting. You can still use Outlook's standard reminder window for longer-range reminders (e.g. 2 days in advance etc), but regardless of whether you've dismissed Outlook's reminder window, didn't notice it popping up in the background, or the meeting organiser didn't set one, you can rely on BetterReminders giving you a notification shortly before the meeting starts
-- if you're using Lync or Webex there's a "Join" button available directly from the reminder window
+- if you're using Teams, Lync or Webex there's a "Join" button available directly from the reminder window
 - options are configurable using Outlook's Options>Add-ins>Add-in Options dialog, allowing you to choose your preferred reminder time, customize how the meeting URL is extracted from the meeting description, exclude certain meetings based on a subject regular expression, and optionally a .wav to play when showing a reminder
 
 ### Supported Outlook versions
@@ -25,9 +25,13 @@ Tested and developed with both Outlook 2010 and Office 365 (desktop version) - b
 ### Installation, uninstallation and upgrade
 To install, extract the zip and run setup.exe. 
 
-To uninstall, select "Outlook BetterReminders" in the "Programs and Features" control panel. 
+To uninstall, select "Outlook BetterReminders" in the "Apps & Features" control panel. 
 
 To upgrade to a newer release, first uninstall the old version then install the new one. 
+
+Unfortunately as this is a free plugin it is not signed with a trusted certificate authority (these are expensive; instead it is self-signed), 
+so users in locked-down security environments may have deal with security warnings as discussed in Microsoft's documentation 
+(see https://docs.microsoft.com/en-us/visualstudio/vsto/how-to-configure-inclusion-list-security).
 
 ### Licensing
 This software is licensed under the MIT license, see https://github.com/ben-spiller/OutlookBetterReminders/blob/master/LICENSE
