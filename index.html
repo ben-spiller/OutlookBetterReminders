@@ -54,9 +54,12 @@
 <li>minimizing (rather than snoozing/dismissing) the reminder window results in it re-activating after 45 seconds so you don't forget to join</li>
 <li>in the interests of simplicity only the next upcoming item is shown in the window - subsequent reminders will appear when that window is dismissed or snoozed</li>
 <li>BetterReminders reminders always appear X seconds/minutes before start time regardless of the 'reminder' time set on the outlook item by whoever scheduled the meeting. You can still use Outlook's standard reminder window for longer-range reminders (e.g. 2 days in advance etc), but regardless of whether you've dismissed Outlook's reminder window, didn't notice it popping up in the background, or the meeting organiser didn't set one, you can rely on BetterReminders giving you a notification shortly before the meeting starts</li>
-<li>if you're using Lync or Webex there's a "Join" button available directly from the reminder window</li>
-<li>options are configurable using Outlook's Options&gt;Add-ins&gt;Add-in Options dialog, allowing you to choose your preferred reminder time, customize how the meeting URL is extracted from the meeting description, exclude certain meetings based on a subject regular expression, and optionally a .wav to play when showing a reminder</li>
+<li>if you're using Microsoft Teams, Zoom, Lync or Webex there's a "Join" button available directly from the reminder window</li>
 </ul>
+
+<h3>Configuration</h3>
+<p>Options are configurable using Outlook's <b>Options&gt;Add-ins&gt;Add-in Options</b> dialog, allowing you to choose your: preferred reminder time, customize how the meeting URL is extracted from the meeting description (using a regular expression with a <code>?&lt;url&gt;</code> named group; this can be used to add meeting links for other languages/translations/meeting tools), exclude certain meetings based on a subject regular expression, and optionally a .wav to play when showing a reminder.
+</p>
 
 <h3>
 <a id="supported-outlook" class="anchor" href="#supported-outlook" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Supported Outlook</h3>
@@ -67,8 +70,10 @@
 <a id="install-upgrade" class="anchor" href="#install-upgrade" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation, uninstallation and upgrade</h3>
 
 <p>To install, download and extract the latest <a href="https://github.com/ben-spiller/OutlookBetterReminders/releases/latest">zip</a> and run setup.exe.
-</p><p>To uninstall, select "Outlook BetterReminders" in the "Programs and Feature" control panel.
+</p><p>To uninstall, select "Outlook BetterReminders" in the "Apps &amp; Features" control panel.
 </p><p>To upgrade to a newer release, first uninstall the old version then install the new one.
+</p>Unfortunately as this is a free plugin it is not signed with a trusted certificate authority (these are expensive; instead it is self-signed), 
+so users in locked-down security environments may have deal with security warnings as discussed in Microsoft's documentation (see <a href="https://docs.microsoft.com/en-us/visualstudio/vsto/how-to-configure-inclusion-list-security">Configure inclusion list security</a>).<p>
 </p>
 
 <h3>
