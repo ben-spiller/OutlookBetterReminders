@@ -47,11 +47,6 @@
     <LoadBehavior>3</LoadBehavior>
   </PropertyGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.1">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.5.1 %28x86 and x64%29</ProductName>
