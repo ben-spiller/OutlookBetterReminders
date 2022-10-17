@@ -48,7 +48,7 @@
 			// label1
 			// 
 			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-			| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.label1.Location = new System.Drawing.Point(15, 37);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(293, 13);
@@ -59,30 +59,35 @@
 			// 
 			this.defaultReminderTimeSecs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.defaultReminderTimeSecs.Increment = new decimal(new int[] {
-			10,
-			0,
-			0,
-			0});
+            10,
+            0,
+            0,
+            0});
 			this.defaultReminderTimeSecs.Location = new System.Drawing.Point(326, 30);
+			this.defaultReminderTimeSecs.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
 			this.defaultReminderTimeSecs.Minimum = new decimal(new int[] {
-			1,
-			0,
-			0,
-			0});
+            1,
+            0,
+            0,
+            0});
 			this.defaultReminderTimeSecs.Name = "defaultReminderTimeSecs";
 			this.defaultReminderTimeSecs.Size = new System.Drawing.Size(99, 20);
 			this.defaultReminderTimeSecs.TabIndex = 2;
 			this.defaultReminderTimeSecs.Value = new decimal(new int[] {
-			1,
-			0,
-			0,
-			0});
+            1,
+            0,
+            0,
+            0});
 			this.defaultReminderTimeSecs.ValueChanged += new System.EventHandler(this.valueChanged);
 			// 
 			// label2
 			// 
 			this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-			| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.label2.Location = new System.Drawing.Point(15, 70);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(302, 20);
@@ -94,24 +99,24 @@
 			this.searchFrequencyMins.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.searchFrequencyMins.Location = new System.Drawing.Point(326, 70);
 			this.searchFrequencyMins.Minimum = new decimal(new int[] {
-			1,
-			0,
-			0,
-			0});
+            1,
+            0,
+            0,
+            0});
 			this.searchFrequencyMins.Name = "searchFrequencyMins";
 			this.searchFrequencyMins.Size = new System.Drawing.Size(99, 20);
 			this.searchFrequencyMins.TabIndex = 4;
 			this.searchFrequencyMins.Value = new decimal(new int[] {
-			1,
-			0,
-			0,
-			0});
+            1,
+            0,
+            0,
+            0});
 			this.searchFrequencyMins.ValueChanged += new System.EventHandler(this.valueChanged);
 			// 
 			// label3
 			// 
 			this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-			| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.label3.Location = new System.Drawing.Point(15, 231);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(305, 23);
@@ -121,7 +126,7 @@
 			// label4
 			// 
 			this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-			| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.label4.Location = new System.Drawing.Point(18, 0);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(407, 15);
@@ -132,11 +137,11 @@
 			// reminderSoundPath
 			// 
 			this.reminderSoundPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-			| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.reminderSoundPath.FormattingEnabled = true;
 			this.reminderSoundPath.Items.AddRange(new object[] {
-			"(none)",
-			"(default)"});
+            "(none)",
+            "(default)"});
 			this.reminderSoundPath.Location = new System.Drawing.Point(18, 255);
 			this.reminderSoundPath.Name = "reminderSoundPath";
 			this.reminderSoundPath.Size = new System.Drawing.Size(323, 21);
@@ -171,7 +176,7 @@
 			// meetingUrlRegex
 			// 
 			this.meetingUrlRegex.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-			| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.meetingUrlRegex.FormattingEnabled = true;
 			this.meetingUrlRegex.Location = new System.Drawing.Point(18, 135);
 			this.meetingUrlRegex.Name = "meetingUrlRegex";
@@ -182,7 +187,7 @@
 			// subjectExcludeRegex
 			// 
 			this.subjectExcludeRegex.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-			| System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.subjectExcludeRegex.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
 			this.subjectExcludeRegex.FormattingEnabled = true;
 			this.subjectExcludeRegex.Location = new System.Drawing.Point(18, 196);

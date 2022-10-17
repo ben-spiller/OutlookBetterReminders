@@ -1,3 +1,8 @@
+Changes in v1.5 - under development
+-----------------------------------
+
+- Removed maximum limit on default reminder time in options dialog. 
+
 Changes in v1.4
 ---------------
 
