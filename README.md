@@ -24,6 +24,8 @@ The full feature list is:
 ### Supported Outlook versions
 Tested and developed with both Outlook 2010 and Office 365 (desktop version) - but there should be no reason for it not to work with other Outlook versions. If you're using a different Outlook version please get in touch to share your experiences, and this section will be updated accordingly. 
 
+Only designed/tested for Windows. 
+
 ### Installation, uninstallation and upgrade
 To install, extract the zip and run setup.exe. 
 
