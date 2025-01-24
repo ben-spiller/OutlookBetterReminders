@@ -41,4 +41,9 @@ so users in locked-down security environments may have deal with security warnin
 This software is licensed under the MIT license, see https://github.com/ben-spiller/OutlookBetterReminders/blob/master/LICENSE
 
 ### Authors and Contributors
-Developed by @ben-spiller. Happy to accept code contributions and suggestions. 
+Developed by @ben-spiller. 
+
+### Maintenance
+Due to my company moving from Outlook to Google (which unfortunately has even worse notifications!), I'm not longer actively developing this plugin, so won't be producing any further builds/releases. 
+
+However feel free to use and fork the code if you would like any changes. 
